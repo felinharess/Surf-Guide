@@ -26,7 +26,7 @@ function Footer() {
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-column">
-                        <h3>Surf Guide</h3>
+                        <h3>Primeira Onda</h3>
                         <p>Nosso objetivo é compartilhar a paixão pelo surf e conectar a comunidade surfista ao redor do mundo.</p>
                         <div className="social-links">
                             <a href="#" className="social-link"><i className="fab fa-instagram"></i></a>
@@ -47,14 +47,14 @@ function Footer() {
                     <div className="footer-column">
                         <h3>Contato</h3>
                         <ul>
-                            <li><i className="fas fa-envelope"></i> contato@mundodosurf.com</li>
+                            <li><i className="fas fa-envelope"></i> felinharesdomingues@gmail.com</li>
                             <li><i className="fas fa-phone"></i> (48) 98801-2747</li>
                             <li><i className="fas fa-map-marker-alt"></i> Santa Catarina, Brasil</li>
                         </ul>
                     </div>
                 </div>
                 <div className="copyright">
-                    <p>&copy; 2026 Surf Guide. Todos os direitos reservados.</p>
+                    <p>&copy; 2026 Primeira Onda. Todos os direitos reservados.</p>
                 </div>
             </div>
         </footer>

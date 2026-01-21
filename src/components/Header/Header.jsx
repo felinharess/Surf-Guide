@@ -61,7 +61,7 @@ function Header() {
                 <div className="header-content">
                     <div className="logo">
                         <i className="fas fa-water wave"></i>
-                        <span>Surf Guide</span>
+                        <span>Primeira Onda</span>
                     </div>
                     <div className="menu-toggle" onClick={handleMenuToggle}>
                         <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
