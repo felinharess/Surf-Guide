@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import "./SurfSpots.css";
@@ -8,12 +9,7 @@ function SurfSpots() {
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [activeTab, setActiveTab] = useState("buscar");
-    const [searchResults, setSearchResults] = useState([])
-
-    const surfSpotsData = [{ id: 1, name: "Praia do Rosa", city: "Imbituba", state: "SC", distance: "5 km", rating: 4.5 },
-    { id: 2, name: "Praia da Vila", city: "Imbituba", state: "SC", distance: "7 km", rating: 4.2 },
-    { id: 3, name: "Praia do Porto", city: "Garopaba", state: "SC", distance: "12 km", rating: 4.7 },
-    { id: 4, name: "Arpoador", city: "Rio de Janeiro", state: "RJ", distance: '10km', rating: 5 }]
+    const [searchResults, setSearchResults] = useState([]);
 
     const getLocalizacao = () => {
         setIsLoading(true);
@@ -54,23 +50,17 @@ function SurfSpots() {
         searchResponse(searchTerm);
     };
 
-    const searchResponse = (term) => {
-        const termo = term.toLowerCase();
-
-        const results = surfSpotsData.filter(spot =>
-            spot.city.toLowerCase().includes(termo) ||
-            spot.state.toLowerCase().includes(termo) ||
-            spot.name.toLowerCase().includes(termo)
-        );
-        setSearchResults(results)
-    }
+    const searchResponse = async (term) => {
+        const response = await axios.get(`http://localhost:3000/praias/search?query=${term}`);
+        console.log(response);
+        setSearchResults(response.data.Praias);
+    };
 
     return (
         <>
             <Header />
 
             <main className="surf-spots-container">
-
                 <div className="surf-spots-hero">
                     <h1 className="surf-spots-title">
                         <i className="fas fa-water wave"></i> Encontre os Melhores Surf-Spots
@@ -172,9 +162,14 @@ function SurfSpots() {
                                                 {searchResults.map((spot) => (
                                                     <div key={spot.id} className="spot-card">
                                                         <div className="spot-image">
-                                                            <div className="spot-rating">
-                                                                <i className="fas fa-star"></i> {spot.rating}
-                                                            </div>
+                                                            {spot.image ? (
+                                                                <img src={spot.image} alt={spot.name} className="spot-image-content" />
+                                                            ) : (
+                                                                <div className="spot-image-placeholder">
+                                                                    <i className="fas fa-water wave"></i>
+                                                                </div>
+                                                            )}
+                                                            
                                                             <div className="spot-overlay">
                                                                 <button className="spot-view-button">
                                                                     <i className="fas fa-eye"></i> Ver detalhes
@@ -187,13 +182,13 @@ function SurfSpots() {
                                                                 <i className="fas fa-map-pin"></i>
                                                                 <span>{spot.city}, {spot.state}</span>
                                                             </div>
-                                                          
+                                                            
                                                             <div className="spot-conditions">
                                                                 <span className="condition-tag">
-                                                                    <i className="fas fa-water"></i> Ondas médias
+                                                                    <i className="fas fa-water"></i> {spot.dificult || "Intermediária"}
                                                                 </span>
                                                                 <span className="condition-tag">
-                                                                    <i className="fas fa-wind"></i> Vento NE
+                                                                    <i className="fas fa-wind"></i> {spot.wind_direction || "NE"}
                                                                 </span>
                                                             </div>
                                                         </div>
